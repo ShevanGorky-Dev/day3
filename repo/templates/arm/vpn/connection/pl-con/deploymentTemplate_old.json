@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "customerid": {
+         "type": "string"
+      },           
+      "subscriptionidcon": {
+         "type": "string"
+      },
+      "site": {
+         "type": "string"
+      },
+      "customerfullname": {
+         "type": "string"
+      },
+      "sharedkey": {
+         "type": "secureString"
+      }
+    },
+    "variables": {
+    "resourcegroup": "[concat(parameters('customerid'), '-pl-connectivity-net-prd-001')]"
+     },
+    "resources": [
+        {
+            "type": "Microsoft.Network/connections",
+            "apiVersion": "2022-07-01",
+            "name": "[concat(parameters('customerid'), '_con_pl_con_azure_', parameters('site'), 'primary_prd_001')]",
+            "location": "westeurope",
+            "properties": {
+                "virtualNetworkGateway1": {
+                    "id": "[concat('/subscriptions/', parameters('subscriptionidcon'), '/resourceGroups/', variables('resourcegroup'), '/providers/Microsoft.Network/virtualNetworkGateways/', parameters('customerid'), '-vgw-', parameters('customerfullname'), 'prd-westeu-001')]",
+                    "properties": {}
+                },
+                "localNetworkGateway2": {
+                    "id": "[concat('/subscriptions/', parameters('subscriptionidcon'), '/resourceGroups/', variables('resourcegroup'), '/providers/Microsoft.Network/localNetworkGateways/', parameters('customerid'), '-lng-pl-con-azure_', parameters('site'), 'primary-prd-001')]",
+                    "properties": {}
+                },
+                "connectionType": "IPsec",
+                "connectionProtocol": "IKEv2",
+                "routingWeight": 10,
+                "sharedKey": "[parameters('sharedkey')]",
+                "enableBgp": false,
+                "useLocalAzureIpAddress": false,
+                "usePolicyBasedTrafficSelectors": true,
+                "ipsecPolicies": [
+                    {
+                        "saLifeTimeSeconds": 3600,
+                        "saDataSizeKilobytes": 102400000,
+                        "ipsecEncryption": "AES256",
+                        "ipsecIntegrity": "SHA256",
+                        "ikeEncryption": "AES256",
+                        "ikeIntegrity": "SHA1",
+                        "dhGroup": "DHGroup14",
+                        "pfsGroup": "None"
+                    }
+                ],
+                "trafficSelectorPolicies": [],
+                "expressRouteGatewayBypass": false,
+                "enablePrivateLinkFastPath": false,
+                "dpdTimeoutSeconds": 0,
+                "connectionMode": "Default",
+                "gatewayCustomBgpIpAddresses": []
+            }
+        }
+    ]
+}

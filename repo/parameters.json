@@ -1,0 +1,32 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+     "subscriptionidcon":{
+        "value": "6ef374ab-9dc5-4fdc-a7c8-61e04ae82d8c"
+      },
+     "subscriptionidide":{
+        "value": "6ef374ab-9dc5-4fdc-a7c8-61e04ae82d8c"
+      },
+     "subscriptionidman":{
+        "value": "6ef374ab-9dc5-4fdc-a7c8-61e04ae82d8c"
+      },
+      "subscriptionidlz":{
+        "value": "6ef374ab-9dc5-4fdc-a7c8-61e04ae82d8c"
+      },    
+     "customerid":{
+        "value": "zwl"
+      },
+     "customerFullName":{
+        "value": "SSC-Ons"
+      },
+     "addressprefix":{
+        "value": "10.202"
+      },
+      "rgLocation":{
+        "value": "westeurope"
+      }
+  
+  
+    }
+  }
